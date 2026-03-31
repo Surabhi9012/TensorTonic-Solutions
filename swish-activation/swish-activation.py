@@ -4,10 +4,13 @@ def swish(x):
     """
     Implement Swish activation function.
     """
-    # Write code here
-    x = np.array(x, dtype = float)
-    for a in x:
-        a = 1 / (1 + np.exp(-x))
-
-    return a*x
-    pass
+    x = np.array(x, dtype=float)
+    
+    # Numerically stable sigmoid
+    sigmoid = np.where(
+        x >= 0,
+        1 / (1 + np.exp(-x)),
+        np.exp(x) / (1 + np.exp(x))
+    )
+    
+    return x * sigmoid
